@@ -123,19 +123,29 @@ WHERE customerid IN
 )
 ````
 
-### 2. Creating a Database in SQLite
+### 2. Creating a Database
 
-Keep track of the code you write and paste at the end of this document
+- Create a database named `budget`. Create database in SQLiteStudio or run the following in the console:
 
-- Use [`SQLite Studio`](https://sqlitestudio.pl/index.rvt) to create a database, name it `budget.sqlite3`.
+```` bash
+ sqlite3 budget.db
+````
+
 - Add an `accounts` table with the following _schema_:
-
   - `id`, numeric value with no decimal places that should autoincrement.
   - `name`, string, add whatever is necessary to make searching by name faster.
   - `budget` numeric value.
-
 - Constraints
   - the `id` should be the primary key for the table.
   - account `name` should be unique.
   - account `budget` is required.
-> This can be done with the CREATE TABLE clause
+
+```` sql
+CREATE TABLE accounts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  name STRING NOT NULL UNIQUE,
+  budget NUMERIC NOT NULL
+);
+
+CREATE INDEX budgetname ON accounts (name);
+````
